@@ -1,6 +1,13 @@
-cpp=g++ -g
+cpp=g++
 
-all: bf
+all: cpp += -O2
+all: bf strip
+
+static: cpp += -static
+static: all
+
+debug: cpp += -g
+debug: bf
 
 bf: bf.o
 	${cpp} bf.o -o bf
@@ -13,3 +20,7 @@ clean:
 
 test: bf
 	./test/test.sh
+
+strip: bf
+	@strip --strip-all bf
+	@strip --strip-debug bf
